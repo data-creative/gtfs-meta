@@ -111,7 +111,7 @@ MY_FEEDS = [
 GTFS::Meta::FeedSeeder.perform(:feed_publishers => MY_FEED_PUBLISHERS, :feeds => MY_FEEDS)
 ````
 
-Consult the [reference documentation](README.md#Reference) for guidance on defining attributes for feeds and associated publishers. 
+Consult the [reference documentation](README.md#reference) for guidance on defining attributes for feeds and associated publishers. 
 
 ### Feed-Managing
 
@@ -128,7 +128,7 @@ TODO: Provide high-level summary of GTFS metadata resources
 
 ### FeedPublisher (Publisher)
 
-A `FeedPublisher` is a type of `[Agency](https://developers.google.com/transit/gtfs/reference#agency_fields)` that provides authoritative source data for a given `Feed`. A publisher may host one or more feeds.
+A `FeedPublisher` is a type of [`Agency`](https://developers.google.com/transit/gtfs/reference#agency_fields) that provides authoritative source data for a given `Feed`. A publisher may host one or more feeds.
 
 TODO: Define `FeedPublisher` attributes
 
@@ -138,7 +138,7 @@ A `Feed` represents a dedicated source of GTFS data available for download in `.
 
 TODO: Define `Feed` attributes
 
-> NOTE: a feed's source attributes (`source_url` and `source_title`) originate from the feed's html link attributes: <a href="SOURCE_URL">SOURCE_TITLE</a>
+> NOTE: a feed's source attributes (`source_url` and `source_title`) originate from the feed's html link attributes: `<a href="SOURCE_URL">SOURCE_TITLE</a>`.
 
 ### FeedVersion
 
@@ -148,7 +148,7 @@ TODO: Define `FeedVersion` attributes
 
 ### FeedFile
 
-A `[FeedFile](https://developers.google.com/transit/gtfs/reference#FeedFiles)` is a physical `.txt` file of GTFS data containing one or more instances of a given `[GTFS::Model](https://github.com/nerdEd/gtfs/blob/master/lib/gtfs/model.rb)`. Feed files are released collectively in versions by their respective publisher.
+A [`FeedFile`](https://developers.google.com/transit/gtfs/reference#FeedFiles) is a physical `.txt` file of GTFS data containing one or more versioned instances of a given [`GTFS::Model`](https://github.com/nerdEd/gtfs/blob/master/lib/gtfs/model.rb). Feed files are released collectively in versions by their respective publisher.
 
 ### FeedFileVersion
 
