@@ -68,6 +68,28 @@ feeds = GTFS::Meta::Feed.all
 GTFS::Meta::FeedManager.perform(:feeds => feeds)
 ````
 
+This script checks for new feed versions, downloads feed data, and stores it according to the following directory structure: `db/gtfs/publishers/PUBLISHER_NAME/feeds/FEED_NAME/versions/ETAG`
+````
+db/gtfs/publishers/cttransit/feeds/newhaven/versions/d6594392f3c6cf11254/
+ + agency.txt
+ + calendar_dates.txt
+ + routes.txt
+ + shapes.txt
+ + stop_times.txt
+ + stops.txt
+ + trips.txt
+
+db/gtfs/publishers/shorelineeast/feeds/shorelineeast/versions/26349c817da114d66c0/
+ + agency.txt
+ + calendar_dates.txt
+ + fare_attributes.txt
+ + fare_rules.txt
+ + routes.txt
+ + stop_times.txt
+ + stops.txt
+ + trips.txt
+````
+
 ## Reference
 
 ### FeedPublisher (Publisher)
