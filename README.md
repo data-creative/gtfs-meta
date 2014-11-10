@@ -33,7 +33,7 @@ GTFS::Meta::CreateFeedVersionChecks.migrate(:up)
 
 ### Feed-Seeding
 
-Pass custom seed data to the [FeedSeeder](lib/gtfs/meta/feed_seeder.rb) to persist valid feeds and feed_publishers to the database. 
+Pass custom seed data to the [FeedSeeder](lib/gtfs/meta/workers/feed_seeder.rb) to persist valid feeds and feed_publishers to the database. 
 
 ```` rb
 MY_FEED_PUBLISHERS = [
