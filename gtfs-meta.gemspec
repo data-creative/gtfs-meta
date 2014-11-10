@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{A GTFS data and metadata manager for ActiveRecord.}
   spec.description   = %q{Extracts feed data, manages feed versions, and extends the feed specification to include feed metadata.}
   spec.homepage      = "http::github.com/databyday/gtfs-meta"
-  spec.license       = "GNU GPL 2.0"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
