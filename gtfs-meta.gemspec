@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{A GTFS data and metadata manager for ActiveRecord.}
   spec.description   = %q{Extracts feed data, manages feed versions, and extends the feed specification to include feed metadata.}
   spec.homepage      = "http::github.com/databyday/gtfs-meta"
-  spec.license       = "MIT"
+  spec.license       = "GNU GPL 2.0"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "rubyzip", "> 1.0"
+  #spec.add_dependency "gtfs", "~> 0.2.3" # temporary rubyzip version conflict ...
 end
