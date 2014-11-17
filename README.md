@@ -33,10 +33,10 @@ GTFS::Meta::CreateFeedVersionChecks.migrate(:up)
 
 ### Feed-Seeding
 
-Pass custom seed data to the [FeedSeeder](lib/gtfs/meta/workers/feed_seeder.rb) to persist valid feeds and feed_publishers to the database. 
+Pass custom seed data to the [FeedSeeder](lib/gtfs/meta/workers/feed_seeder.rb) to persist valid feeds and publishers to the database.
 
 ```` rb
-MY_FEED_PUBLISHERS = [
+MY_PUBLISHERS = [
   {:id => 1, :name => "Shore Line East", :url => "http://www.shorelineeast.com", :feeds_url => nil, :email_address => nil},
   {:id => 2, :name => "Metropolitan Transportation Authority", :url => "http://web.mta.info/developers", :feeds_url => "http://web.mta.info/developers/developer-data-terms.html#data", :email_address => nil},
   {:id => 3, :name => "CT Transit", :url => "http://www.cttransit.com/", :feeds_url => "http://www.cttransit.com/about/developers/gtfsdata/Main.asp", :email_address => nil}
@@ -54,14 +54,14 @@ MY_FEEDS = [
   {:publisher_id => 3,:source_url => "http://www.cttransit.com/uploads_GTFS/googleme_transit.zip",:source_title => "Meriden"}
 ]
 
-GTFS::Meta::FeedSeeder.perform(:feed_publishers => MY_FEED_PUBLISHERS, :feeds => MY_FEEDS)
+GTFS::Meta::FeedSeeder.perform(:publishers => MY_PUBLISHERS, :feeds => MY_FEEDS)
 ````
 
 Consult the [reference documentation](README.md#reference) for guidance on defining attributes for feeds and associated publishers. 
 
 ### Feed-Managing
 
-Once persisted, pass one or more feeds to the FeedManager.
+Once persisted, pass one or more feeds to the [FeedManager](lib/gtfs/meta/workers/feed_manager.rb).
 
 ```` rb
 feeds = GTFS::Meta::Feed.all
@@ -92,13 +92,11 @@ db/gtfs/publishers/shorelineeast/feeds/shorelineeast/versions/26349c817da114d66c
 
 ## Reference
 
-### FeedPublisher (Publisher)
+### Publisher
 
-A `FeedPublisher` is a type of [`Agency`](https://developers.google.com/transit/gtfs/reference#agency_fields) that provides authoritative source data for a given `Feed`. A publisher may host one or more feeds.
+A `Publisher` is a type of [`Agency`](https://developers.google.com/transit/gtfs/reference#agency_fields) that provides authoritative source data for a given `Feed`. A publisher may host one or more feeds.
 
 #### Field Definitions:
-
-todo: define attributes
 
 #### Sample Data:
 
@@ -113,8 +111,6 @@ id	| name	| url	| feeds_url	| email_address	| created_at	| updated_at
 A `Feed` represents a dedicated source of GTFS data available for download in `.zip` format over `http`. Feeds are published and modified by their respective publishers.
 
 #### Field Definitions:
-
-todo: define attributes
 
 #### Sample Data:
 
@@ -133,8 +129,6 @@ id	| publisher_id	| source_url	| source_title	| created_at	| updated_at
 A `FeedVersion` is a collective modification of feed files provided by a feed publisher. New feed versions supercede previous versions, and are effective for a limited period of time.
 
 #### Field Definitions:
-
-todo: define attributes
 
 #### Sample Data:
 
@@ -156,33 +150,9 @@ id	|	feed_id	|	etag	|	last_modified_at |	file_names	|	created_at	|	updated_at
 14	|	8	|	faac30c98aadcf11254	|	2014-08-01 13:16:20	|some binary output	|	2014-11-08 06:37:59	|	2014-11-09 18:51:37
 15	|	9	|	b4bd11ecc481cf11254	|	2014-06-06 20:21:39	|some binary output	|	2014-11-08 06:38:00	|	2014-11-09 18:51:38
 
-### FeedVersionCheck
-
-#### Field Definitions:
-
-todo: define attributes
-
-#### Sample Data:
-
-id	| feed_version_id |	status |	created_at	| updated_at
----- | ---- | --- | --- | ---
-1	| 1	| SUCCESS	| 2014-11-10 08:58:48	| 2014-11-10 08:58:48
-10	| 1	| SUCCESS	| 2014-11-10 09:01:01	| 2014-11-10 09:01:01
-11	| 2	| SUCCESS	| 2014-11-10 09:01:02	| 2014-11-10 09:01:02
-2	| 2	| SUCCESS	| 2014-11-10 08:58:49	| 2014-11-10 08:58:49
-12	| 3	| SUCCESS	| 2014-11-10 09:01:07	| 2014-11-10 09:01:07
-
 ### FeedFile
 
 A [`FeedFile`](https://developers.google.com/transit/gtfs/reference#FeedFiles) is a physical `.txt` file of GTFS data containing one or more versioned instances of a given [`GTFS::Model`](https://github.com/nerdEd/gtfs/blob/master/lib/gtfs/model.rb). Feed files are released collectively in versions by their respective publisher.
-
-### FeedFileVersion
-
-todo: summarize 
-
-todo: define attributes
-
-todo: provide sample data
 
 ## Contributing
 

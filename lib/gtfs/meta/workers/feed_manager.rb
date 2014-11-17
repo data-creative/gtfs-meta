@@ -10,7 +10,7 @@ module GTFS
       FEED_FILE_NAMES = ["agency.txt", "stops.txt", "routes.txt", "trips.txt", "stop_times.txt", "calendars.txt", "calendar_dates.txt", "shapes.txt", "fare_attributes.txt", "fare_rules.txt", "frequencies.txt", "transfers.txt"]
 
       def self.perform(options = {})
-        feeds = options[:feeds]
+        feeds = options[:feeds] || GTFS::Meta::Feed.all
 
         feeds.find_each do |feed|
           begin
@@ -23,12 +23,12 @@ module GTFS
 
             raise EtagError.new(etag) unless etag.is_a?(String)
             raise LastModifiedError.new(last_modified_at) unless last_modified_at.is_a?(DateTime)
-            feed_version = FeedVersion.where({
+            feed_version = GTFS::Meta::FeedVersion.where({
               :feed_id => feed.id,
               :etag => etag,
               :last_modified_at => last_modified_at
             }).first_or_create
-            feed_version_check = FeedVersionCheck.create({
+            feed_version_check = GTFS::Meta::FeedVersionCheck.create({
               :feed_version_id => feed_version.id,
               :status => "IN PROGRESS"
             })
