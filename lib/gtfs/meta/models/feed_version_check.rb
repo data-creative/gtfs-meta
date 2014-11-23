@@ -1,7 +1,6 @@
 module GTFS
   module Meta
-    class FeedVersionCheck < ActiveRecord::Base
-      #TODO: re-construct this model from a custom generator
+    class FeedVersionCheck < Resource
     end
   end
 end

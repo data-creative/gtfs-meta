@@ -1,10 +1,6 @@
-require 'uri'
-
 module GTFS
   module Meta
-    class Feed < ActiveRecord::Base
-      #TODO: re-construct this model from a custom generator
-
+    class Feed < Resource
       belongs_to :publisher, :inverse_of => :feeds, :class_name => "GTFS::Meta::Publisher"
 
       has_many :versions, :inverse_of => :feed, :class_name => "GTFS::Meta::FeedVersion"

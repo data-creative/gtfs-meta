@@ -1,19 +1,19 @@
 module GTFS
   module Meta
     class CreateFeeds < ActiveRecord::Migration
-      #TODO: re-construct this migration from a custom generator
+      TABLE_NAME = Config.resource_table_prefix.concat("feeds").to_sym
 
       def change
-        create_table :feeds do |t|
+        create_table TABLE_NAME do |t|
           t.integer :publisher_id, :null => false
           t.string :source_url, :null => false
           t.string :source_title, :null => false
           t.timestamps
         end
 
-        add_index :feeds, :publisher_id
-        add_index :feeds, :source_url, :unique => true
-        add_index :feeds, [:publisher_id, :source_title], :unique => true, :name => "publisher_unique_source_titles"
+        add_index TABLE_NAME, :publisher_id
+        add_index TABLE_NAME, :source_url, :unique => true
+        add_index TABLE_NAME, [:publisher_id, :source_title], :unique => true, :name => "publisher_unique_source_titles"
       end
     end
   end
