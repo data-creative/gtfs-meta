@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["s2t2mail@gmail.com"]
   spec.summary       = %q{A GTFS data and metadata manager for ActiveRecord.}
   spec.description   = %q{Extracts feed data, manages feed versions, and extends the feed specification to include feed metadata.}
-  spec.homepage      = "http::github.com/databyday/gtfs-meta"
+  spec.homepage      = "https://github.com/databyday/gtfs-meta"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
