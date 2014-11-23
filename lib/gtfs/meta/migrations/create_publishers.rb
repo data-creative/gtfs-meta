@@ -1,10 +1,8 @@
 module GTFS
   module Meta
     class CreatePublishers < ActiveRecord::Migration
-      #TODO: re-construct this migration from a custom generator
-
       def change
-        create_table :publishers do |t|
+        create_table Config.resource_table_prefix.concat("publishers").to_sym do |t|
           t.string :name
           t.string :url, :null => false
           t.string :feeds_url
