@@ -1,8 +1,3 @@
-require 'net/http'
-require 'uri'
-require 'zip'
-require 'gtfs'
-
 module GTFS
   module Meta
     class FeedManager
