@@ -1,13 +1,12 @@
 require 'net/http'
 require 'uri'
 require 'zip'
-#require 'gtfs'
+require 'gtfs'
 
 module GTFS
   module Meta
     class FeedManager
-      #FEED_FILE_NAMES = GTFS::Source::ENTITIES.map{|e| e.name == "Agency" ? e.singular_name.to_s.concat(".txt") : e.name.to_s.concat(".txt")}
-      FEED_FILE_NAMES = ["agency.txt", "stops.txt", "routes.txt", "trips.txt", "stop_times.txt", "calendars.txt", "calendar_dates.txt", "shapes.txt", "fare_attributes.txt", "fare_rules.txt", "frequencies.txt", "transfers.txt"]
+      FEED_FILE_NAMES = GTFS::Source::ENTITIES.map{|e| e.name == "Agency" ? e.singular_name.to_s.concat(".txt") : e.name.to_s.concat(".txt")}
 
       def self.perform(options = {})
         feeds = options[:feeds] || GTFS::Meta::Feed.all
