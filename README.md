@@ -2,8 +2,6 @@
 
 A [General Transit Feed Specification (GTFS)](https://developers.google.com/transit/gtfs/) data and metadata manager for ActiveRecord. 
 
-Extracts feed data, manages feed versions, and extends the feed specification to include feed metadata.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -20,29 +18,50 @@ Or install it yourself as:
 
     $ gem install gtfs-meta
 
-## Reference
+## Configuration
 
-### Publisher
+Reference the following list of configurable options.
 
-A `Publisher` is a type of [`Agency`](https://developers.google.com/transit/gtfs/reference#agency_fields) that provides authoritative source data for a given `Feed`. A publisher may host one or more feeds.
+name | description | optionality | default value
+--- | --- | --- | ---
+feed_file_management_directory | path to local directory where feed files will be stored and managed | optional | "db/gtfs"
+resource_table_prefix | database table schema prefix for gtfs meta resources | optional | "gtfs_"
+feed_source_urls | gtfs feed sources for consumption  | **required** | N/A
 
-### Feed
+To speficy values for one or more configuration option, add the following block of code to your project:
 
-A `Feed` represents a dedicated source of GTFS data available for download in `.zip` format over `http`. Feeds are published and modified by their respective publishers.
+```` rb
+GTFS::Meta.configure do |config|
+  config.feed_source_urls = [
+    "http://some_host.com/some_gtfs_file_name.zip",
+    "http://some_host.com/another_gtfs_file_name.zip",
+    "http://different_host.info/developer_page/a_gtfs_file.zip"
+  ]
+  config.feed_file_management_directory = "some/local/path" # optional
+  config.feed_file_management_directory = "some/local/path" # optional
+end
+````
 
-> NOTE: a feed's source attributes (`source_url` and `source_title`) originate from the feed's html link attributes: `<a href="SOURCE_URL">SOURCE_TITLE</a>`.
-
-### FeedVersion
-
-A `FeedVersion` is a collective modification of feed files provided by a feed publisher. New feed versions supercede previous versions, and are effective for a limited period of time.
-
-### FeedFile
-
-A [`FeedFile`](https://developers.google.com/transit/gtfs/reference#FeedFiles) is a physical `.txt` file of GTFS data containing one or more versioned instances of a given [`GTFS::Model`](https://github.com/nerdEd/gtfs/blob/master/lib/gtfs/model.rb). Feed files are released collectively in versions by their respective publisher.
+> Tip: For Ruby on Rails projects, place this code in a new file called *config/initializers/gtfs_meta.rb*.
 
 ## Usage
 
-...
+1. Migrate the database.
+```` rb
+GTFS::Meta::DatabaseMigrator.perform
+````
+
+2. Seed configured feed sources.
+```` rb
+GTFS::Meta::FeedSeeder.perform
+````
+
+3. Manage data and metadata from configured feed sources.
+```` rb
+GTFS::Meta::FeedManager.perform
+````
+
+> Tip: Schedule execution of the feed manager via cron to periodically check for feed updates and get the latest versions.
 
 ## Contributing
 

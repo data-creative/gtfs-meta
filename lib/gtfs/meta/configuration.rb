@@ -1,6 +1,6 @@
 module GTFS
   module Meta
-    class Publisher < Resource
+    class Configuration
     end
   end
 end
